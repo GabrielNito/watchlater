@@ -27,7 +27,7 @@ const MainContentCardDelete = ({
     } else {
       console.log(`URL not found: ${link}`);
     }
-    localStorage.setItem("watchlater-react", JSON.stringify(db));
+    localStorage.setItem("watchlater", JSON.stringify(db));
     window.location.reload();
   }
 

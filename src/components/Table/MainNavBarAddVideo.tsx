@@ -23,9 +23,9 @@ const MainNavBarAddVideo = () => {
     event.preventDefault();
     setIsOpen(false);
 
-    const db = JSON.parse(localStorage.getItem("watchlater-react") || "[]");
+    const db = JSON.parse(localStorage.getItem("watchlater") || "[]");
     db.push(link);
-    localStorage.setItem("watchlater-react", JSON.stringify(db));
+    localStorage.setItem("watchlater", JSON.stringify(db));
     window.location.reload();
   };
 
