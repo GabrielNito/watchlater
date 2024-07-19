@@ -5,20 +5,21 @@ import {
   ContextMenuItem,
   ContextMenuTrigger,
 } from "../ui/context-menu";
-import { Button } from "../ui/button";
-import { Trash } from "lucide-react";
+import { Eye, EyeOff, Trash } from "lucide-react";
 
 interface MainContentCardDeleteProps {
   children: ReactNode;
   link: string;
+  watched?: boolean;
 }
 
 const MainContentCardDelete = ({
   children,
   link,
+  watched,
 }: MainContentCardDeleteProps) => {
   function handleDelete() {
-    const db = JSON.parse(localStorage.getItem("watchlater-react") || "[]");
+    const db = JSON.parse(localStorage.getItem("watchlater") || "[]");
 
     const index = db.indexOf(link);
     if (index !== -1) {
@@ -30,15 +31,65 @@ const MainContentCardDelete = ({
     window.location.reload();
   }
 
+  function handleWatched() {
+    const watch = JSON.parse(localStorage.getItem("watchlater") || "[]");
+    const watched = JSON.parse(localStorage.getItem("watched") || "[]");
+
+    const index = watch.indexOf(link);
+    if (index !== -1) {
+      watch.splice(index, 1);
+      watched.push(link);
+    } else {
+      console.log(`URL not found: ${link}`);
+    }
+    localStorage.setItem("watchlater", JSON.stringify(watch));
+    localStorage.setItem("watched", JSON.stringify(watched));
+    window.location.reload();
+  }
+
+  function handleWatchLater() {
+    const watch = JSON.parse(localStorage.getItem("watchlater") || "[]");
+    const watched = JSON.parse(localStorage.getItem("watched") || "[]");
+
+    const index = watched.indexOf(link);
+    if (index !== -1) {
+      watched.splice(index, 1);
+      watch.push(link);
+    } else {
+      console.log(`URL not found: ${link}`);
+    }
+    localStorage.setItem("watchlater", JSON.stringify(watch));
+    localStorage.setItem("watched", JSON.stringify(watched));
+    window.location.reload();
+  }
+
   return (
     <ContextMenu>
       <ContextMenuTrigger>{children}</ContextMenuTrigger>
       <ContextMenuContent>
-        <ContextMenuItem>
-          <Button variant="destructive" onClick={handleDelete}>
-            <Trash className="ml-[-.25rem] mr-2" />
-            Delete Item
-          </Button>
+        {watched ? (
+          <ContextMenuItem
+            onClick={handleWatchLater}
+            className="flex justify-between gap-2"
+          >
+            Set to Watch Later
+            <EyeOff size={20} />
+          </ContextMenuItem>
+        ) : (
+          <ContextMenuItem
+            onClick={handleWatched}
+            className="flex justify-between gap-2"
+          >
+            Set as Watched
+            <Eye size={20} />
+          </ContextMenuItem>
+        )}
+        <ContextMenuItem
+          onClick={handleDelete}
+          className="flex justify-between gap-2"
+        >
+          Delete Item
+          <Trash size={20} />
         </ContextMenuItem>
       </ContextMenuContent>
     </ContextMenu>
