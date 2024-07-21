@@ -17,7 +17,7 @@ where you can insert the YouTube link, and add it to the Watch Later list
 
 After that, you'll see the thumbnails of the videos you've saved
 
-![Interface](https://github.com/user-attachments/assets/25d1cdfd-348c-41aa-a333-b1c0cb71dcbc)
+![UI](https://github.com/user-attachments/assets/b1191262-c179-4987-bc35-a675649f194c)
 
 Right-clicking any video will bring up two options:
 - Set as Watched: _Sends the video to the Watched tab_
